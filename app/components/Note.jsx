@@ -16,7 +16,7 @@ export default class Note extends React.Component {
     }
 
     return this.renderNote();
-  }
+  };
   renderEdit = () => {
     /*
         We deal with blur and input handlers here. These map to DOM events.
@@ -38,8 +38,18 @@ export default class Note extends React.Component {
 
   };
   renderNote = () => {
-    // If the user clicks a normal note, trigger editing logic
-    return <div onClick={this.edit}>{this.props.task}</div>;
+    const onDelete = this.props.onDelete;
+
+    return (
+      <div onClick={this.edit}>
+        <span className="task">{this.props.task}</span>
+        {onDelete ? this.renderDelete() : null}
+      </div>
+    );
+
+  };
+  renderDelete = () => {
+    return <button className="delete-note" onClick={this.props.onDelete}>x</button>;
   };
   edit = () => {
     // Enter edit mode.
